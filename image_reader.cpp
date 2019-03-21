@@ -1,5 +1,5 @@
 //reads the images stored in a file 
-#include "images_reader.h"
+#include "image_reader.h"
 #include <istream>
 #include <ostream>
 #include <iostream>
@@ -10,14 +10,6 @@
 using namespace std;
 
 //helper to check foreground value
-
-void ImagesReader::SetArray(int data_image[kImageLength][kImageLength]) {
-    for (int i = 0; i < kImageLength; i++) {
-        for (int j = 0; j < kImageLength; j++) {
-            actual_image[i][j] = data_image[i][j];
-        }
-    }
-}
 
 istream & operator >> (istream &in,  ImagesReader &c) {
     //initialize the 2d array
@@ -47,7 +39,12 @@ istream & operator >> (istream &in,  ImagesReader &c) {
         }
     }
 
-    c.SetArray(image_with_pixel_values);
+    //set actual image to this image with pixel values
+    for (int i = 0; i < c.kImageLength; i++) {
+        for (int j = 0; j < c.kImageLength; j++) {
+            c.actual_image[i][j] = image_with_pixel_values[i][j];
+        }
+    }
 
     return in;
 }
