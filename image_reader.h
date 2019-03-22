@@ -11,9 +11,10 @@ using namespace std;
 
 
 class ImagesReader { 
-    private:
-        int actual_image[28][28];
+    // private:
+        
     public:
+    int actual_image[28][28];
         static const int kImageLength = 28;
         static const char kGrayValue = '+';
         static const char kBlackValue = '#';
