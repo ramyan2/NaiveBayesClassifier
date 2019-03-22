@@ -22,7 +22,7 @@ istream & operator >> (istream &in,  ImagesReader &c) {
 
     int times_to_loop = c.kImageLength;
 
-    //TRY USING A WHILE LOOP
+    //TRY WHILE
 
     //loop it through every line
     string image_data_line;
