@@ -27,7 +27,7 @@ cin >> filename2;
 obj.RetrieveTrainingLabels(filename2);
 
 obj.CreateProbabilityModel();
-cout << obj.probability_model[27][27][1][0];
+cout << obj.probability_model[27][27][9][0];
 
 return 0;
 }
