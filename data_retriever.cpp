@@ -11,6 +11,7 @@
 
 using namespace std;
 
+DataRetriever::DataRetriever() {}
 
 bool DataRetriever::RetrieveTrainingImages(string file) {
     ifstream my_input_file(file);
@@ -34,9 +35,8 @@ bool DataRetriever::RetrieveTrainingLabels(string file) {
     ifstream my_input_file(file);
 
     if (my_input_file.is_open()) {
-        while(!my_input_file.eof()) {
-            int number;
-            my_input_file >> number;
+        int number;
+        while(my_input_file >> number) {
             vector_of_labels.push_back(number);
         }
         my_input_file.close();
@@ -50,6 +50,7 @@ bool DataRetriever::RetrieveTrainingLabels(string file) {
 //calculate
 
 double DataRetriever::CalculateLikelihoodForEachIndex(int row, int col, int class_number, int feature) {
+    double smoothing_factor = 1.0;
     int number_of_times_feature_occurs = 0;
     int number_of_times_class_occurs = 0;  
 
@@ -88,8 +89,6 @@ void DataRetriever::CreateProbabilityModel() {
     SetToZero(probability_model);
 
     SetLikelihoodToModel(probability_model);
-
-    
 }
 
 void DataRetriever::SetToZero(double model[28][28][10][2]) {

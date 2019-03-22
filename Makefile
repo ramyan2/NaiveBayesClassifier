@@ -1,3 +1,2 @@
-all main:
-	g++ -o main naive_bayes.cc main.cc 
-	./main
+all:
+	g++ -std=c++14 -o naivebayes image_reader.cpp data_retriever.cpp main.cpp

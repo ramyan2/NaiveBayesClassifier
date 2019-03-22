@@ -9,6 +9,9 @@
 
 using namespace std;
 
+
+ImagesReader::ImagesReader() {}
+
 //helper to check foreground value
 
 istream & operator >> (istream &in,  ImagesReader &c) {

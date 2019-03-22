@@ -15,9 +15,9 @@ class DataRetriever {
     private:
         std::vector<ImagesReader> vector_of_images;
         std::vector<int> vector_of_labels;
-        const int smoothing_factor = 0.1;
-        double probability_model[28][28][10][2];
+        
     public:
+    double probability_model[28][28][10][2];
         static const int kImageLength = 28;
         static const int kNumberOfClasses = 10;
         DataRetriever();
