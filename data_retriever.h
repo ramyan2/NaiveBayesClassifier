@@ -32,5 +32,10 @@ class DataRetriever {
         void CreateProbabilityModel();
         void LoadModelFromFile(string probability_file);
         int CalculatePosteriorProbabilities(ImagesReader image);
+        DataRetriever(string training_images_file, string training_labels_file);
+        std::vector<double> CreateVectorOfPriorsProbability();
+        void SavePriorsModelToFile(string priors_file);
+        void LoadPriorsModelFromFile(string priors_file);
+        DataRetriever(string type, string stored_training_images_file, string stored_training_priors_file);
 };
 #endif
