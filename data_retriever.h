@@ -15,8 +15,9 @@ class DataRetriever {
     private:
         std::vector<ImagesReader> vector_of_images;
         std::vector<int> vector_of_labels;
-        
+        int class_of_image;
     public:
+        std::vector<double> vector_of_posterior_probabilities;
         double probability_model[28][28][10][2];
         static const int kImageLength = 28;
         static const int kNumberOfClasses = 10;
@@ -30,5 +31,6 @@ class DataRetriever {
         double CalculatePriorsProbability(int class_number);
         void CreateProbabilityModel();
         void LoadModelFromFile(string probability_file);
+        int CalculatePosteriorProbabilities(ImagesReader image);
 };
 #endif

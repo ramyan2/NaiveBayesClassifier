@@ -8,6 +8,7 @@
 #include <vector>
 #include <set>
 #include <fstream>
+#include <math.h>  
 
 using namespace std;
 
@@ -142,7 +143,6 @@ void DataRetriever::SaveModelToFile(string probability_file) {
 
 }
 
-//load a model from a file***
 
 void DataRetriever::LoadModelFromFile(string probability_file) {
     ifstream my_input_file(probability_file);
@@ -167,4 +167,28 @@ void DataRetriever::LoadModelFromFile(string probability_file) {
     }
 }
 
+int DataRetriever::CalculatePosteriorProbabilities(ImagesReader image) {
+    for (int i = 0; i < kNumberOfClasses; i++) {
+        double posterior_probability;
 
+        posterior_probability = posterior_probability + log(CalculatePriorsProbability(i));
+
+        for (int row = 0; row < kImageLength; row++) {
+            for (int col = 0; col < kImageLength; col++) {
+                posterior_probability += log(probability_model[row][col][i][image.actual_image[row][col]]);
+            }
+        }
+
+        vector_of_posterior_probabilities.push_back(posterior_probability);
+    }
+
+        double max = vector_of_posterior_probabilities.at(0);
+        class_of_image = 0;
+        for (int i = 1; i < vector_of_posterior_probabilities.size(); i++) {
+            if (vector_of_posterior_probabilities.at(i) > max) {
+                max = vector_of_posterior_probabilities.at(i);
+                class_of_image = i;
+            }
+        }
+        return class_of_image;
+    }
