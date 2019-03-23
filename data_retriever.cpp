@@ -117,8 +117,54 @@ void DataRetriever::SetLikelihoodToModel(double model[28][28][10][2]) {
 
 
 
-//save this model to a file
+//save this model to a file ***
+
+void DataRetriever::SaveModelToFile(string probability_file) {
+    ofstream my_output_file;
+    my_output_file.open(probability_file, std::ofstream::out | std::ofstream::trunc);
+
+    if (my_output_file.is_open()) {
+        
+     for (int row = 0; row < kImageLength; row++) {
+            for (int col = 0; col < kImageLength; col++) {
+                for (int class_number = 0; class_number < kNumberOfClasses; class_number++) {
+                    for (int feature = 0; feature < 2; feature++) {
+                        my_output_file << probability_model[row][col][class_number][feature];
+                    }
+                }
+            }
+        }
+        my_output_file.close();
+        cout << "Probability Model is in " << probability_file;
+    } else {
+        cout << "Invalid output file";
+    }
+
+}
+
+//load a model from a file***
+
+void DataRetriever::LoadModelFromFile(string probability_file) {
+    ifstream my_input_file(probability_file);
+
+    if (my_input_file.is_open()) {
+        for (int row = 0; row < kImageLength; row++) {
+            for (int col = 0; col < kImageLength; col++) {
+                for (int class_number = 0; class_number < kNumberOfClasses; class_number++) {
+                    for (int feature = 0; feature < 2; feature++) {
+                        double specific_likelihood_value;
+                        my_input_file >> specific_likelihood_value;
+
+                        probability_model[row][col][class_number][feature] = specific_likelihood_value;
+                    }
+                }
+            }
+        }
+
+        my_input_file.close();
+    } else {
+        cout << "Invalid file";
+    }
+}
 
 
-
-//load a model from a file

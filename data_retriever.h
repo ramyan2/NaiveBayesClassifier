@@ -17,16 +17,18 @@ class DataRetriever {
         std::vector<int> vector_of_labels;
         
     public:
-    double probability_model[28][28][10][2];
+        double probability_model[28][28][10][2];
         static const int kImageLength = 28;
         static const int kNumberOfClasses = 10;
         DataRetriever();
         void SetToZero(double model[28][28][10][2]);
         void SetLikelihoodToModel(double model[28][28][10][2]);
+        void SaveModelToFile(string probability_file);
         bool RetrieveTrainingImages(string file);
         bool RetrieveTrainingLabels(string file);
         double CalculateLikelihoodForEachIndex(int row, int col, int class_number, int feature); 
         double CalculatePriorsProbability(int class_number);
         void CreateProbabilityModel();
+        void LoadModelFromFile(string probability_file);
 };
 #endif
