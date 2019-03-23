@@ -157,6 +157,7 @@ std::vector<double> DataRetriever::CreateVectorOfPriorsProbability() {
 
 //save likelihood model to a file ***
 void DataRetriever::SaveModelToFile(string probability_file) {
+    cout <<"check";
     ofstream my_output_file;
     my_output_file.open(probability_file, std::ofstream::out | std::ofstream::trunc);
 
@@ -265,3 +266,4 @@ int DataRetriever::CalculatePosteriorProbabilities(ImagesReader image) {
         }
         return class_of_image;
     }
+
