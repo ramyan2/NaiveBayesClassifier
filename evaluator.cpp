@@ -10,38 +10,61 @@
 #include <set>
 #include <fstream>
 #include <math.h>  
+#include <iomanip>
 
 using namespace std;
 Evaluator::Evaluator() {}
 //checks accuracy and updates the confusion matrix of a data retriever object  
-Evaluator::Evaluator(DataRetriever probability_model) {
-    CheckCorrectnessOfModel(std::move(probability_model));
-    UpdateConfusionMatrix();
+Evaluator::Evaluator(Classifier probability_model) {
+    //calculate accuracy percentage
+    //calculate confusion matrix
 }
 
 //checks accuracy percentage
 void Evaluator::CheckCorrectnessOfModel(DataRetriever probability_model) {
-    DataRetriever test = DataRetriever("testimages", "testlabels");
-
+    cout << "Check1";
+    probability_model = DataRetriever("testimages", "testlabels");
     for (int i = 0; i < kNumberOfClasses; i++) {
-        for (int j = 0; j < i; j++) {
+        for (int j = 0; j < 10; j++) {
             confusion_matrix[i][j] = 0;
         }
     }
 
-    int count = 0;
-    for (long i = 0; i < test.vector_of_images.size(); i++) {
-        int predicted_class = probability_model.CalculatePosteriorProbabilities(test.vector_of_images.at(i));
+    // cout << "Initial confusion matrix:";
+    // for (int i = 0; i < kNumberOfClasses; i++) {
+    //     for (int j = 0; j < 10; j++) {
+    //         cout << confusion_matrix[i][j];
+    //     }
+    //     cout <<'\n';
+    // }
 
-        if (predicted_class == test.vector_of_labels.at(i)) {
+
+
+    int count = 0;
+
+    cout << "size of vector of images" << probability_model.vector_of_images.size(); 
+
+    for (unsigned long long i = 0; i < probability_model.vector_of_images.size(); i++) {
+        int predicted_class = probability_model.CalculatePosteriorProbabilities(probability_model.vector_of_images.at(i));
+
+        if (predicted_class == probability_model.vector_of_labels.at(i)) {
+            cout << "matches!";
             count++;
         }
         //?
-        confusion_matrix[test.vector_of_labels.at(i)][predicted_class]++;
+        confusion_matrix[probability_model.vector_of_labels.at(i)][predicted_class]++;
     }
-
-    double number_of_correctly_predicted_classes = (double) (count / test.vector_of_images.size());
+        cout << "Second confusion matrix:";
+    for (int i = 0; i < kNumberOfClasses; i++) {
+        for (int j = 0; j < 10; j++) {
+            cout << confusion_matrix[i][j];
+        }
+        cout <<'\n';
+    }
+    cout << "check 3" << count;
+    double number_of_correctly_predicted_classes = (double) (count / probability_model.vector_of_images.size());
     percentage_of_correctly_predicted_classes = number_of_correctly_predicted_classes * 100;
+    cout << "amoutn" << percentage_of_correctly_predicted_classes;
 
 }
 
@@ -61,6 +84,25 @@ void Evaluator::CalculateTotalNumberOfImagesPerClass(int matrix[10][10], int row
         for (int k = 0; k < kNumberOfClasses; k++) {
             matrix[row][k] = (matrix[row][k] / number_of_class_images) * 100;
         }
+}
+
+
+//ostream 
+
+ostream &operator<<(ostream &out, const Evaluator &evaluator) {
+    cout << "Accuracy Percentage is: " << evaluator.percentage_of_correctly_predicted_classes << "%%";
+
+    cout << "Confusion Matrix: ";
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            cout << fixed;
+            cout << setprecision(2);
+            cout << evaluator.confusion_matrix[i][j] << "%%" << " ";
+    }
+    cout << '\n';
+  }
+
+  return out;
 }
 
 

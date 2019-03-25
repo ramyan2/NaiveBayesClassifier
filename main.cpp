@@ -37,6 +37,7 @@ while(!exit) {
         obj.LoadPriorsModelFromFile("priorsmodel");
     } else if(answer == "classify") {
         eval = Evaluator(obj);
+        cout << eval;
     } else if (answer == "exit") {
         cout << "exit";
         exit = true;
