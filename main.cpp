@@ -1,6 +1,7 @@
 #include "data_retriever.h"
 #include "image_reader.h"
 #include "evaluator.h"
+#include "classifier.h"
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -13,7 +14,7 @@ using namespace std;
 
 int main() {
 
-    DataRetriever obj;
+    Classifier obj;
     Evaluator eval;
 //read frmo training images and labels file store in a string
 //declare object of data retriever class and operate the methods
@@ -28,7 +29,7 @@ while(!exit) {
 
     // transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
     if (answer == "train") {
-        obj = DataRetriever("trainingimages", "traininglabels");
+        obj = Classifier("trainingimages", "traininglabels");
     } else if (answer == "save") {
         obj.SaveModelToFile("probabilitymodel");
         obj.SavePriorsModelToFile("priorsmodel");

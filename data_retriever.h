@@ -13,8 +13,7 @@ using namespace std;
 
 class DataRetriever { 
     private:
-        int class_of_image;
-        double k_value = 0.1;
+            double k_value = 0.1;
     public:
     DataRetriever();
     DataRetriever(string training_images_file, string training_labels_file);
@@ -31,17 +30,6 @@ class DataRetriever {
         double probability_model[28][28][10][2];
         static const int kImageLength = 28;
         static const int kNumberOfClasses = 10;
-        
-
-    
-        
-        int CalculatePosteriorProbabilities(ImagesReader image);
-       
-        void SaveModelToFile(string probability_file); 
-        void SavePriorsModelToFile(string priors_file);
-        void LoadModelFromFile(string probability_file);
-        void LoadPriorsModelFromFile(string priors_file);
-
-        DataRetriever(string type, string stored_training_images_file, string stored_training_priors_file);
+  
 };
 #endif

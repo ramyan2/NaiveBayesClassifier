@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "image_reader.h"
 #include "data_retriever.h"
 
 using namespace std;

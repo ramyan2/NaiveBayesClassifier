@@ -17,9 +17,14 @@ Classifier::Classifier(string images_data_file, string labels_data_file) {
     DataRetriever model = DataRetriever(move(images_data_file), move(labels_data_file));
     
     CreateProbabilityModel(model);
-    CreateProbabilityModel(model);
+    CreatePriorsModel(model);
 }
 
+//generate prob matrix
+void Classifier::CreateProbabilityModel(DataRetriever training_model) {
+    SetToZero();
+    SetLikelihoodToModel(training_model);
+}
 
 //helper to genereate prob matrix
 void Classifier::SetToZero() {
@@ -46,21 +51,18 @@ void Classifier::SetLikelihoodToModel(DataRetriever training_model) {
     }
 }
 
-//generate prob matrix
-void Classifier::CreateProbabilityModel(DataRetriever training_model) {
-    SetToZero();
-    SetLikelihoodToModel(training_model);
-}
+
 
 
 //Priors generator
 void Classifier::CreatePriorsModel(DataRetriever training_model) {
-    for (int i = 0; i < training_model.CreateVectorOfPriorsProbability.size(); i++) {
-        priors_vector.push_back(training_model.CalculateLikelihoodForEachIndex.at(i));
+    std::vector<double> vector = training_model.CreateVectorOfPriorsProbability();
+    for (int i = 0; i < vector.size(); i++) {
+        priors_vector.push_back(vector.at(i));
     }
 }
 
-
+//***
 int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
     std::vector<double> vector_of_posteriors;
     for (unsigned long long i = 0; i < kNumberOfClasses; i++) {
@@ -89,7 +91,7 @@ int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
         return class_of_image;
     }
 
-//load likelihood model from a file
+//***
 void Classifier::LoadModelFromFile(string probability_file) {
     ifstream my_input_file(probability_file);
 
@@ -113,7 +115,7 @@ void Classifier::LoadModelFromFile(string probability_file) {
     }
 }
 
-//load priors model from a file
+
 void Classifier::LoadPriorsModelFromFile(string priors_file) {
     ifstream my_input_file(priors_file);
 
@@ -140,7 +142,7 @@ void Classifier::SaveModelToFile(string probability_file) {
             for (int col = 0; col < kImageLength; col++) {
                 for (int class_number = 0; class_number < kNumberOfClasses; class_number++) {
                     for (int feature = 0; feature < 2; feature++) {
-                        my_output_file << probability_model[row][col][class_number][feature];
+                        my_output_file << probability_model[row][col][class_number][feature] << '\n';
                     }
                 }
             }
@@ -153,7 +155,7 @@ void Classifier::SaveModelToFile(string probability_file) {
 
 }
 
-//saves priors model to a file
+//saves priors model to a file***
 void Classifier::SavePriorsModelToFile(string priors_file) {
     ofstream my_output_file;
     my_output_file.open(priors_file, std::ofstream::out | std::ofstream::trunc);
