@@ -19,9 +19,9 @@ Evaluator::Evaluator(Classifier probability_model) {
     CheckCorrectnessOfModel(move(probability_model));
 }
 
-//checks accuracy percentage***
+//checks accuracy percentage**
 void Evaluator::CheckCorrectnessOfModel(Classifier probability_model) {
-    DataRetriever data = DataRetriever("testimages", "testlabels");
+    DataRetriever data = DataRetriever("testimages2", "testlabels2");
 
     for (int i = 0; i < kNumberOfClasses; i++) {
         for (int j = 0; j < i; j++) {
@@ -61,17 +61,17 @@ void Evaluator::CalculateTotalNumberOfImagesPerClass(double matrix[10][10], int 
 }
 
 
-//ostream 
+//prints accuracy and confusion matrix 
 
 ostream &operator<<(ostream &out, const Evaluator &evaluator) {
-    cout << "Accuracy Percentage is: " << evaluator.percentage_of_correctly_predicted_classes << "%%";
+    cout << "Accuracy Percentage is: " << evaluator.percentage_of_correctly_predicted_classes << '%' << '\n';
 
     cout << "Confusion Matrix: " << '\n';
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             cout << fixed;
             cout << setprecision(2);
-            cout << evaluator.confusion_matrix[i][j] << "%%" << " ";
+            cout << evaluator.confusion_matrix[i][j] << '%' << " ";
     }
     cout << '\n';
   }

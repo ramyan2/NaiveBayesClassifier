@@ -10,7 +10,6 @@
 #include <fstream>
 
 
-
 Classifier::Classifier() {}
 
 Classifier::Classifier(string images_data_file, string labels_data_file) {
@@ -20,11 +19,14 @@ Classifier::Classifier(string images_data_file, string labels_data_file) {
     CreatePriorsModel(model);
 }
 
+
+
 //generate prob matrix
 void Classifier::CreateProbabilityModel(DataRetriever training_model) {
     SetToZero();
     SetLikelihoodToModel(training_model);
 }
+
 
 //helper to genereate prob matrix
 void Classifier::SetToZero() {
@@ -38,6 +40,8 @@ for (int row = 0; row < kImageLength; row++) {
             }
         }
 }
+
+
 //helper to generate prob matrix
 void Classifier::SetLikelihoodToModel(DataRetriever training_model) {
     for (int row = 0; row < kImageLength; row++) {
@@ -53,7 +57,6 @@ void Classifier::SetLikelihoodToModel(DataRetriever training_model) {
 
 
 
-
 //Priors generator
 void Classifier::CreatePriorsModel(DataRetriever training_model) {
     std::vector<double> vector = training_model.CreateVectorOfPriorsProbability();
@@ -61,6 +64,8 @@ void Classifier::CreatePriorsModel(DataRetriever training_model) {
         priors_vector.push_back(vector.at(i));
     }
 }
+
+
 
 //calculates the posterior probabilities and returns the maximum, which is the class of the image
 int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
@@ -93,6 +98,8 @@ int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
         return class_of_image;
     }
 
+
+
 //loads the probability model from a file
 void Classifier::LoadModelFromFile(string probability_file) {
     ifstream my_input_file(probability_file);
@@ -117,6 +124,8 @@ void Classifier::LoadModelFromFile(string probability_file) {
     }
 }
 
+
+
 //loads priors from a file
 void Classifier::LoadPriorsModelFromFile(string priors_file) {
     ifstream my_input_file(priors_file);
@@ -132,6 +141,8 @@ void Classifier::LoadPriorsModelFromFile(string priors_file) {
         cout << "Invalid file";
     }
 }
+
+
 
 //save likelihood model to a file
 void Classifier::SaveModelToFile(string probability_file) {
@@ -155,6 +166,8 @@ void Classifier::SaveModelToFile(string probability_file) {
     }
 
 }
+
+
 
 //saves priors model to a file
 void Classifier::SavePriorsModelToFile(string priors_file) {

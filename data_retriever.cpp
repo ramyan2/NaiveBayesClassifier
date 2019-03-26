@@ -115,6 +115,4 @@ std::vector<double> DataRetriever::CreateVectorOfPriorsProbability() {
     return priors_vector;
 }
 
-//-----------//
-
 
