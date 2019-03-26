@@ -62,7 +62,7 @@ void Classifier::CreatePriorsModel(DataRetriever training_model) {
     }
 }
 
-//***
+//calculates the posterior probabilities and returns the maximum, which is the class of the image
 int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
     std::vector<double> vector_of_posteriors;
     for (unsigned long long i = 0; i < kNumberOfClasses; i++) {
@@ -78,6 +78,7 @@ int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
 
         vector_of_posteriors.push_back(posterior_probability);
     }
+    
 
         double max = vector_of_posteriors.at(0);
 
@@ -88,10 +89,11 @@ int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
                 class_of_image = i;
             }
         }
+
         return class_of_image;
     }
 
-//***
+//loads the probability model from a file
 void Classifier::LoadModelFromFile(string probability_file) {
     ifstream my_input_file(probability_file);
 
@@ -115,7 +117,7 @@ void Classifier::LoadModelFromFile(string probability_file) {
     }
 }
 
-
+//loads priors from a file
 void Classifier::LoadPriorsModelFromFile(string priors_file) {
     ifstream my_input_file(priors_file);
 
@@ -131,7 +133,7 @@ void Classifier::LoadPriorsModelFromFile(string priors_file) {
     }
 }
 
-//save likelihood model to a file ***
+//save likelihood model to a file
 void Classifier::SaveModelToFile(string probability_file) {
     ofstream my_output_file;
     my_output_file.open(probability_file, std::ofstream::out | std::ofstream::trunc);
@@ -148,14 +150,13 @@ void Classifier::SaveModelToFile(string probability_file) {
             }
         }
         my_output_file.close();
-        cout << "Probability Model is in " << probability_file;
     } else {
         cout << "Invalid output file";
     }
 
 }
 
-//saves priors model to a file***
+//saves priors model to a file
 void Classifier::SavePriorsModelToFile(string priors_file) {
     ofstream my_output_file;
     my_output_file.open(priors_file, std::ofstream::out | std::ofstream::trunc);
@@ -165,7 +166,6 @@ void Classifier::SavePriorsModelToFile(string priors_file) {
         my_output_file << priors_vector.at(i) << endl;
         }
         my_output_file.close();
-        cout << "Priors Model is in " << priors_file;
     } else {
         cout << "Invalid output file";
     }

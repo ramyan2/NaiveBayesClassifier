@@ -26,7 +26,6 @@ class Evaluator {
         Evaluator();
         Evaluator(Classifier probability_model);
         void CheckCorrectnessOfModel(Classifier probability_model);
-        void UpdateConfusionMatrix();
         void CalculateTotalNumberOfImagesPerClass(double matrix[10][10], int row);
         friend ostream &operator<<(ostream &output_stream, const Evaluator &evaluator);
 };

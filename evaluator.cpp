@@ -43,15 +43,11 @@ void Evaluator::CheckCorrectnessOfModel(Classifier probability_model) {
     double number_of_correctly_predicted_classes = (double) (count / data.vector_of_images.size());
     percentage_of_correctly_predicted_classes = number_of_correctly_predicted_classes * 100;
 
-    UpdateConfusionMatrix();
-}
-
-//generates a proper confusion matrix
-void Evaluator::UpdateConfusionMatrix() {
     for (int class_number = 0; class_number < kNumberOfClasses; class_number++) {
         CalculateTotalNumberOfImagesPerClass(confusion_matrix, class_number);
     }
 }
+
 //helper for updating the confusion matrix
 void Evaluator::CalculateTotalNumberOfImagesPerClass(double matrix[10][10], int row) {
     int number_of_class_images = 0;
