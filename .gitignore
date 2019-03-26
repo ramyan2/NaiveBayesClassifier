@@ -517,9 +517,10 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-testimages
-testlabels
-trainingimages
-traininglabels
-readme.txt
+testimages2
+testlabels2
+trainingimages2
+traininglabels2
+readme2.txt
+
 # End of https://www.gitignore.io/api/c++,xcode,visualstudio,openframeworks,visualstudiocode,openframeworks+visualstudio
