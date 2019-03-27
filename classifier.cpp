@@ -53,6 +53,7 @@ void Classifier::SetLikelihoodToModel(DataRetriever training_model) {
             }
         }
     }
+    cout <<"test" << probability_model[15][15][3][1];
 }
 
 
@@ -83,7 +84,6 @@ int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
 
         vector_of_posteriors.push_back(posterior_probability);
     }
-    
 
         double max = vector_of_posteriors.at(0);
 
@@ -94,7 +94,6 @@ int Classifier::CalculatePosteriorProbabilities(ImagesReader image) {
                 class_of_image = i;
             }
         }
-
         return class_of_image;
     }
 

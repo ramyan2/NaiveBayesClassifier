@@ -19,7 +19,7 @@ Evaluator::Evaluator(Classifier probability_model) {
     CheckCorrectnessOfModel(move(probability_model));
 }
 
-//checks accuracy percentage**
+//checks accuracy 
 void Evaluator::CheckCorrectnessOfModel(Classifier probability_model) {
     DataRetriever data = DataRetriever("testimages2", "testlabels2");
 
@@ -52,7 +52,7 @@ void Evaluator::CheckCorrectnessOfModel(Classifier probability_model) {
 void Evaluator::CalculateTotalNumberOfImagesPerClass(double matrix[10][10], int row) {
     int number_of_class_images = 0;
         for (int j = 0; j < kNumberOfClasses; j++) {
-            number_of_class_images += matrix[row][j];
+            number_of_class_images = number_of_class_images + matrix[row][j];
         }
 
         for (int k = 0; k < kNumberOfClasses; k++) {

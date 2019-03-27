@@ -17,10 +17,9 @@ using namespace std;
 
 
 class Evaluator { 
-    private:
+    public:
         double confusion_matrix[10][10];
         double percentage_of_correctly_predicted_classes;
-    public:
         static const int kImageLength = 28;
         static const int kNumberOfClasses = 10;
         Evaluator();
