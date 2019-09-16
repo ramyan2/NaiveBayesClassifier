@@ -1,2 +1,2 @@
 # NaiveBayes
-Simple Naive Bayes didgit classifier.
+Simple Naive Bayes digit classifier.
